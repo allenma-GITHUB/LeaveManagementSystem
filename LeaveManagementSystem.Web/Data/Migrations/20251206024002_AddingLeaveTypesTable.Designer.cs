@@ -37,7 +37,7 @@ namespace LeaveManagementSystem.Web.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<int>("NumberOfDays")
+                    b.Property<int>("Days")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
