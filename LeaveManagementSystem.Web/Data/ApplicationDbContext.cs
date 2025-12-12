@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace LeaveManagementSystem.Web.Data
 {
-    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext(options)
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -32,19 +36,22 @@ namespace LeaveManagementSystem.Web.Data
                     NormalizedName = "ADMINISTRATOR",
                     ConcurrencyStamp = "8ff85667-fe7f-4c9d-a30f-28ce536dbd27"
                 });
-
-            builder.Entity<IdentityUser>()
-                .HasData(new IdentityUser
+            builder.Entity<ApplicationUser>()
+                .HasData(new ApplicationUser
                 {
                     Id = "b29fe88e-ed6d-4359-b82c-5953425ab3e1",
                     Email = "admin@localhost.com",
                     NormalizedEmail = "ADMIN@LOCALHOST.COM",
                     NormalizedUserName = "ADMIN@LOCALHOST.COM",
                     UserName = "admin@localhost.com",
-                    PasswordHash = "AQAAAAIAAYagAAAAEBhz8hHaAbCMu0ILuGwNqLPqLPH8hj5qXqCqN3qL0wZYTwVfOPfL2qN2JIQH3UM8Fg==",
+                    PasswordHash = "AQAAAAIAAYagAAAAEMydVtNM95kptUlOh9H2YWFym9RxVJ6Akfpku2D1fagkkbtqx9fQXBhEMSR1cC2/eA==",
                     EmailConfirmed = true,
                     ConcurrencyStamp = "a078cae8-0de7-4207-8094-9c133a0a2231",
-                    SecurityStamp = "e2307f74-c8b6-4b6e-898e-54214ab6abc1"
+                    SecurityStamp = "e2307f74-c8b6-4b6e-898e-54214ab6abc1",
+                    FirstName = "Default",
+                    LastName = "Admin",
+                    DateOfBirth = new DateOnly(1975, 10, 09)
+
                 });
 
             builder.Entity<IdentityUserRole<string>>().HasData(
@@ -57,5 +64,5 @@ namespace LeaveManagementSystem.Web.Data
 
         public DbSet<LeaveType> LeaveTypes { get; set; }
     }
-    
+
 }
