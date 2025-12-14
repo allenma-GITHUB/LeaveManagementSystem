@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using LeaveManagementSystem.Web.Data;
-using LeaveManagementSystem.Web.Models.LeaveTypes;
-using AutoMapper;
+﻿using LeaveManagementSystem.Web.Models.LeaveTypes;
 using LeaveManagementSystem.Web.Services;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace LeaveManagementSystem.Web.Controllers
 {
+    [Authorize(Roles = Roles.Administrator)]
     public class LeaveTypesController(ILeaveTypeService _leaveTypeService) : Controller
     {
         private const string NameExistValidationMessage = "This leavetype already exists in the database";
@@ -37,7 +31,7 @@ namespace LeaveManagementSystem.Web.Controllers
             {
                 return NotFound();
             }
-            
+
             return View(leaveType);
         }
 
@@ -64,7 +58,7 @@ namespace LeaveManagementSystem.Web.Controllers
                 ModelState.AddModelError(nameof(leaveTypeCreate.Name), NameExistValidationMessage);
 
             }
-            
+
             if (ModelState.IsValid)
             {
                 await _leaveTypeService.Create(leaveTypeCreate);
@@ -113,11 +107,11 @@ namespace LeaveManagementSystem.Web.Controllers
             {
                 try
                 {
-                  await _leaveTypeService.Edit(leaveTypeEdit);
+                    await _leaveTypeService.Edit(leaveTypeEdit);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (! _leaveTypeService.LeaveTypeExists(leaveTypeEdit.Id))
+                    if (!_leaveTypeService.LeaveTypeExists(leaveTypeEdit.Id))
                     {
                         return NotFound();
                     }
