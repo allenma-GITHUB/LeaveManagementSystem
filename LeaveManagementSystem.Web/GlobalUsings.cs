@@ -10,8 +10,3 @@ global using System.ComponentModel.DataAnnotations;
 global using System.Text;
 global using System.Text.Encodings.Web;
 global using LeaveManagementSystem.Web.Common;
-global using LeaveManagementSystem.Web.Services.LeaveAllocations;
-global using LeaveManagementSystem.Web.Services.LeaveTypes;
-global using LeaveManagementSystem.Web.Models.LeaveTypes;
-global using LeaveManagementSystem.Web.Models.LeaveAllocations;
-global using LeaveManagementSystem.Web.Models.Period;

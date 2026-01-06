@@ -1,6 +1,6 @@
 ﻿using LeaveManagementSystem.Web.Data;
 using LeaveManagementSystem.Web.Models.LeaveTypes;
-using LeaveManagementSystem.Web.Models.Period;
+using LeaveManagementSystem.Web.Models.Periods;
 
 namespace LeaveManagementSystem.Web.Models.LeaveAllocations
 {
@@ -9,7 +9,7 @@ namespace LeaveManagementSystem.Web.Models.LeaveAllocations
         public int Id { get; set; }
 
         [Display(Name = "Number Of Days")]
-        public int NumberOfDays { get; set; }
+        public int Days { get; set; }
 
         [Display(Name = "Allocation Period")]
         public PeriodVM Period { get; set; } = new PeriodVM();

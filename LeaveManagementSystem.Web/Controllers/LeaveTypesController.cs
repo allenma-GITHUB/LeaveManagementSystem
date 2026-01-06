@@ -1,18 +1,18 @@
 ﻿using LeaveManagementSystem.Web.Models.LeaveTypes;
+using LeaveManagementSystem.Web.Services.LeaveTypes;
 using Microsoft.EntityFrameworkCore;
-
 
 namespace LeaveManagementSystem.Web.Controllers
 {
     [Authorize(Roles = Roles.Administrator)]
-    public class LeaveTypesController(ILeaveTypeService _leaveTypeService) : Controller
+    public class LeaveTypesController(ILeaveTypesService _leaveTypesService) : Controller
     {
-        private const string NameExistValidationMessage = "This leavetype already exists in the database";
+        private const string NameExistsValidationMessage = "This leave type already exists in the database";
 
         // GET: LeaveTypes
         public async Task<IActionResult> Index()
         {
-            var viewData = await _leaveTypeService.GetAll();
+            var viewData = await _leaveTypesService.GetAll();
             return View(viewData);
         }
 
@@ -23,14 +23,11 @@ namespace LeaveManagementSystem.Web.Controllers
             {
                 return NotFound();
             }
-
-            var leaveType = await _leaveTypeService.Get<LeaveTypeReadOnlyVM>(id.Value);
-
+            var leaveType = await _leaveTypesService.Get<LeaveTypeReadOnlyVM>(id.Value);
             if (leaveType == null)
             {
                 return NotFound();
             }
-
             return View(leaveType);
         }
 
@@ -47,20 +44,15 @@ namespace LeaveManagementSystem.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(LeaveTypeCreateVM leaveTypeCreate)
         {
-            if (leaveTypeCreate.Name.Contains("vacation") || (leaveTypeCreate.Name.Contains("leave")))
+            // Adding custom validation and model state error
+            if (await _leaveTypesService.CheckIfLeaveTypeNameExists(leaveTypeCreate.Name))
             {
-                ModelState.AddModelError(nameof(leaveTypeCreate), "Name should not contain the word 'vacation' or 'leave'");
-            }
-
-            if (await _leaveTypeService.CheckIfLeaveTypeNameExists(leaveTypeCreate.Name))
-            {
-                ModelState.AddModelError(nameof(leaveTypeCreate.Name), NameExistValidationMessage);
-
+                ModelState.AddModelError(nameof(leaveTypeCreate.Name), "This leave type already exists in the database");
             }
 
             if (ModelState.IsValid)
             {
-                await _leaveTypeService.Create(leaveTypeCreate);
+                await _leaveTypesService.Create(leaveTypeCreate);
                 return RedirectToAction(nameof(Index));
             }
             return View(leaveTypeCreate);
@@ -74,13 +66,11 @@ namespace LeaveManagementSystem.Web.Controllers
                 return NotFound();
             }
 
-            var leaveType = await _leaveTypeService.Get<LeaveTypeEditVM>(id.Value);
-
+            var leaveType = await _leaveTypesService.Get<LeaveTypeEditVM>(id.Value);
             if (leaveType == null)
             {
                 return NotFound();
             }
-
             return View(leaveType);
         }
 
@@ -96,21 +86,21 @@ namespace LeaveManagementSystem.Web.Controllers
                 return NotFound();
             }
 
-            if (await _leaveTypeService.CheckIfLeaveTypeNameExistsForEdit(leaveTypeEdit))
+            // Adding custom validation and model state error
+            if (await _leaveTypesService.CheckIfLeaveTypeNameExistsForEdit(leaveTypeEdit))
             {
-                ModelState.AddModelError(nameof(leaveTypeEdit.Name), NameExistValidationMessage);
-
+                ModelState.AddModelError(nameof(leaveTypeEdit.Name), NameExistsValidationMessage);
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await _leaveTypeService.Edit(leaveTypeEdit);
+                    await _leaveTypesService.Edit(leaveTypeEdit);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!_leaveTypeService.LeaveTypeExists(leaveTypeEdit.Id))
+                    if (!_leaveTypesService.LeaveTypeExists(leaveTypeEdit.Id))
                     {
                         return NotFound();
                     }
@@ -133,13 +123,11 @@ namespace LeaveManagementSystem.Web.Controllers
                 return NotFound();
             }
 
-            var leaveType = await _leaveTypeService.Get<LeaveTypeReadOnlyVM>(id.Value);
-
+            var leaveType = await _leaveTypesService.Get<LeaveTypeReadOnlyVM>(id.Value);
             if (leaveType == null)
             {
                 return NotFound();
             }
-
             return View(leaveType);
         }
 
@@ -148,9 +136,8 @@ namespace LeaveManagementSystem.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _leaveTypeService.Remove(id);
+            await _leaveTypesService.Remove(id);
             return RedirectToAction(nameof(Index));
         }
-
     }
 }

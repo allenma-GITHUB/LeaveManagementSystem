@@ -1,4 +1,6 @@
-﻿namespace LeaveManagementSystem.Web.Data
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace LeaveManagementSystem.Web.Data
 {
     public class ApplicationUser : IdentityUser
     {

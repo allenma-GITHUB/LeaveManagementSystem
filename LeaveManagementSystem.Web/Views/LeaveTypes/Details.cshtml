@@ -4,11 +4,11 @@
     ViewData["Title"] = $"{Model.Name} Details";
 }
 
-<h1>Details for @Model.Name</h1>
+<h1>@Model.Name Details</h1>
 
-<div class="container-fluid align-content-between">
+<div>
     <hr />
-    <dl class="row container-fluid">
+    <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -23,7 +23,7 @@
         </dd>
     </dl>
 </div>
-<div class="flex-md-row col-xs-4 container-fluid align-content-between">
-    <a asp-action="Edit" asp-route-id="@Model?.Id" class=" btn btn-warning">Edit</a>
-    <a asp-action="Index" class="btn btn-outline-warning">Back to List</a>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">Edit</a> 
+    <a asp-action="Index" class="btn btn-primary">Back to List</a>
 </div>

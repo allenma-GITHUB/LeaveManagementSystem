@@ -17,7 +17,7 @@ namespace LeaveManagementSystem.Web.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.0")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -100,10 +100,10 @@ namespace LeaveManagementSystem.Web.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b29fe88e-ed6d-4359-b82c-5953425ab3e1",
+                            Id = "408aa945-3d84-4421-8342-7269ec64d949",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a078cae8-0de7-4207-8094-9c133a0a2231",
-                            DateOfBirth = new DateOnly(1975, 10, 9),
+                            ConcurrencyStamp = "7e97c4f5-d9df-4088-8bca-5fb4278dcac3",
+                            DateOfBirth = new DateOnly(1950, 12, 1),
                             Email = "admin@localhost.com",
                             EmailConfirmed = true,
                             FirstName = "Default",
@@ -111,9 +111,9 @@ namespace LeaveManagementSystem.Web.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMydVtNM95kptUlOh9H2YWFym9RxVJ6Akfpku2D1fagkkbtqx9fQXBhEMSR1cC2/eA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA9pUfVGWWUUkZwjHnlI9nE5ObYlWhYIqS0PZ7ZqAciW5JaZzSGIRbw8122OMeQs2Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e2307f74-c8b6-4b6e-898e-54214ab6abc1",
+                            SecurityStamp = "85f9759b-af6b-47cf-9e63-bf55b2b4865b",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });
@@ -161,6 +161,7 @@ namespace LeaveManagementSystem.Web.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
                     b.Property<int>("NumberOfDays")
@@ -223,22 +224,19 @@ namespace LeaveManagementSystem.Web.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "58b9fee9-333f-4278-a792-53860fd0b7ca",
-                            ConcurrencyStamp = "c87b586b-a804-4b71-b671-fc6daac9d338",
+                            Id = "6d9ed3ff-bebb-42bc-ad07-0255bb0f7edb",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
-                            Id = "17d7d0e7-71b9-47a7-a0bb-aaa7318476f3",
-                            ConcurrencyStamp = "978a19be-b7c8-42d1-b3cb-8fb19e6f8756",
+                            Id = "cc4fcb01-de88-4c20-b4ac-8df5c2a65160",
                             Name = "Supervisor",
                             NormalizedName = "SUPERVISOR"
                         },
                         new
                         {
-                            Id = "b29fe88e-ed6d-4359-b82c-5953425ab3e1",
-                            ConcurrencyStamp = "8ff85667-fe7f-4c9d-a30f-28ce536dbd27",
+                            Id = "e9f639de-624f-4a4e-b8bf-2381725462f1",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -335,8 +333,8 @@ namespace LeaveManagementSystem.Web.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "b29fe88e-ed6d-4359-b82c-5953425ab3e1",
-                            RoleId = "b29fe88e-ed6d-4359-b82c-5953425ab3e1"
+                            UserId = "408aa945-3d84-4421-8342-7269ec64d949",
+                            RoleId = "e9f639de-624f-4a4e-b8bf-2381725462f1"
                         });
                 });
 

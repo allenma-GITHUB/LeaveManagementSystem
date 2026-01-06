@@ -1,6 +1,6 @@
-using System.Diagnostics;
 using LeaveManagementSystem.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace LeaveManagementSystem.Web.Controllers
 {
@@ -12,8 +12,12 @@ namespace LeaveManagementSystem.Web.Controllers
         {
             _logger = logger;
         }
+
         public IActionResult Index()
         {
+            // Define business logic
+            //...
+
             return View();
         }
 
@@ -22,10 +26,21 @@ namespace LeaveManagementSystem.Web.Controllers
             return View();
         }
 
+        public IActionResult About()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            // queries
+            // calculations
+            var model = new ErrorViewModel
+            {
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(model);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace LeaveManagementSystem.Web.Controllers
             var data = new TestViewModel
             {
                 Name = "Student of MVC Mastery",
-                DateofBirth = new DateTime(1984,12,14)
+                DateOfBirth = new DateTime(1954,12,01)
             };
             return View(data);
         }

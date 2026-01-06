@@ -6,10 +6,11 @@
     ViewData["Title"] = "Test View";
 }
 
-<h1> Hello From Test Controller</h1>
-<h2>Your name is @Model.Name</h2>
 
-@if (Model.DateofBirth.HasValue)
+<h1>Hello From Test Controller</h1>
+<h2>Your name is: @Model.Name</h2>
+
+@if (Model.DateOfBirth.HasValue)
 {
-    <h2>Your DOB is: @Model.DateofBirth</h2>
+    <h2>Your DoB is: @Model.DateOfBirth</h2>
 }
